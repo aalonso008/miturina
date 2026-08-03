@@ -1,0 +1,14 @@
+{
+  "name": "tu-rutina",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PWA de rutina de gym",
+  "scripts": {
+    "start": "npx serve . -l 3000",
+    "icons": "node scripts/generate-icons.js"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4",
+    "sharp": "^0.33.5"
+  }
+}
