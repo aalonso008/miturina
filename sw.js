@@ -1,4 +1,4 @@
-const CACHE = 'tu-rutina-v9';
+const CACHE = 'tu-rutina-v10';
 const ASSETS = [
   './',
   './index.html',
