@@ -1,0 +1,35 @@
+<h2>Registro</h2>
+  <p class="sub">Seleccioná el ejercicio, cargá peso y guardá</p>
+
+  <div class="log-form">
+    <label>Filtrar por músculo</label>
+    <div class="muscle-filter" id="muscleFilter">
+      <button class="mf-btn active" onclick="filterMuscle('todos', this)">Todos</button>
+      <button class="mf-btn" onclick="filterMuscle('pecho', this)">Pecho</button>
+      <button class="mf-btn" onclick="filterMuscle('espalda', this)">Espalda</button>
+      <button class="mf-btn" onclick="filterMuscle('hombros', this)">Hombros</button>
+      <button class="mf-btn" onclick="filterMuscle('biceps', this)">Bíceps</button>
+      <button class="mf-btn" onclick="filterMuscle('triceps', this)">Tríceps</button>
+      <button class="mf-btn" onclick="filterMuscle('piernas', this)">Piernas</button>
+    </div>
+
+    <label style="margin-top:12px">Ejercicio</label>
+    <div class="ex-picker" id="exPicker"></div>
+    <div class="ex-selected" id="exSelected">Ninguno seleccionado</div>
+
+    <label style="margin-top:14px">Peso · Series · Reps</label>
+    <div class="log-row">
+      <input type="number" id="logPeso" placeholder="kg" min="0" step="0.5">
+      <input type="number" id="logSeries" placeholder="series" min="1" max="10">
+      <input type="number" id="logReps" placeholder="reps" min="1" max="30">
+    </div>
+    <label>Nota (opcional)</label>
+    <input type="text" id="logNota" placeholder="Ej: se sintió pesado">
+    <button class="log-btn" onclick="saveLog()">Guardar registro</button>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin:16px 0 8px">
+    <span style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Historial</span>
+    <button onclick="copyLogs()" style="background:var(--bg2);border:1px solid var(--border);color:var(--accent2);font-size:12px;font-weight:600;padding:5px 12px;border-radius:8px;cursor:pointer">Copiar todo</button>
+  </div>
+  <div class="log-entries" id="logEntries"></div>
