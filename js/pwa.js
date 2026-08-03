@@ -70,10 +70,10 @@
     }
     if (isAndroid) {
       return [
-        'Usá Google Chrome.',
-        'Tocá el menú (⋮) arriba a la derecha.',
-        'Elegí "Instalar app" o "Agregar a pantalla de inicio".',
-        'Confirmá la instalación.'
+        'Importante: elegí "Instalar app", NO "Agregar a pantalla de inicio".',
+        'Abrí la página en Google Chrome.',
+        'Menú (⋮) → "Instalar app" (ícono de descarga).',
+        'Al abrirla, no debe verse la barra de Chrome.'
       ];
     }
     return [
@@ -110,7 +110,7 @@
     }
 
     if (isAndroid) {
-      setHint('Menú (⋮) → Instalar app');
+      setHint('Menú (⋮) → Instalar app (no acceso directo)');
       showBanner();
     }
   }
