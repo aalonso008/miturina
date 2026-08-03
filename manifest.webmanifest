@@ -2,27 +2,31 @@
   "name": "Tu Rutina — Gym 5 Días",
   "short_name": "Tu Rutina",
   "description": "Creá tu rutina de gym y registrá tus pesos",
-  "id": "./",
+  "id": "https://aalonso008.github.io/miturina/",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#0f0f0f",
   "theme_color": "#0f0f0f",
   "lang": "es",
-  "prefer_related_applications": false,
   "icons": [
     {
-      "src": "assets/icons/icon-192.png",
+      "src": "https://aalonso008.github.io/miturina/assets/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "assets/icons/icon-512.png",
+      "src": "https://aalonso008.github.io/miturina/assets/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "https://aalonso008.github.io/miturina/assets/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
