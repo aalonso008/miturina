@@ -12,8 +12,11 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
-        var scope = location.pathname.replace(/[^/]*$/, '');
-        if (!scope.endsWith('/')) scope += '/';
+        var scope = '/miturina/';
+        if (location.hostname !== 'aalonso008.github.io') {
+          scope = location.pathname.replace(/[^/]*$/, '');
+          if (!scope.endsWith('/')) scope += '/';
+        }
         navigator.serviceWorker.register(scope + 'sw.js', { scope: scope });
       });
     }

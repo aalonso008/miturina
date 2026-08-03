@@ -63,10 +63,10 @@
     }
     if (isAndroid) {
       return [
-        'Usá Google Chrome (actualizado).',
-        'Esperá unos segundos en la página.',
-        'Menú (⋮) → "Instalar app" (no "Acceso directo").',
-        'Si abre con barra de Chrome, borrá el acceso directo viejo e instalá de nuevo.'
+        'Usá Google Chrome con cuenta de Google activa.',
+        'Menú (⋮) → "Instalar app".',
+        'Esperá 1-2 minutos: Chrome genera la app en segundo plano.',
+        'Si falla: actualizá Google Play Services y probá con WiFi.'
       ];
     }
     return [
@@ -111,10 +111,16 @@
   function tryInstall() {
     if (deferredPrompt) {
       deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(function () {
+      deferredPrompt.userChoice.then(function (result) {
+        if (result.outcome !== 'accepted') {
+          setHint('Instalación cancelada. Probá desde Menú → Instalar app.');
+          showBanner();
+        }
         deferredPrompt = null;
-        hideBanner();
-        hideInstallModal();
+      }).catch(function () {
+        setHint('No se pudo instalar. Revisá los pasos en Ayuda.');
+        renderInstallSteps();
+        showInstallModal();
       });
       return;
     }
