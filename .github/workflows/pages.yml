@@ -26,6 +26,9 @@ jobs:
           npm ci
           npm run icons
 
+      - name: Patch manifest for GitHub Pages
+        run: node scripts/patch-gh-pages.js miturina
+
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:

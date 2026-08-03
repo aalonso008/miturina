@@ -14,8 +14,13 @@
   body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; padding-bottom: 80px; }
 
   header { padding: 20px 16px 12px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 10; }
+  .header-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   header h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
   header p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .header-install-btn {
+    flex-shrink: 0; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--accent);
+    background: transparent; color: var(--accent); font-size: 12px; font-weight: 700; cursor: pointer;
+  }
 
   .day-tabs { display: flex; overflow-x: auto; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--border); scrollbar-width: none; position: sticky; top: 57px; background: var(--bg); z-index: 9; }
   .day-tabs::-webkit-scrollbar { display: none; }
@@ -197,6 +202,12 @@
   .modal-card h2 { font-size: 18px; margin-bottom: 8px; }
   .modal-card p { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
   .modal-btn { margin-top: 8px; }
+  .install-modal-card { position: relative; max-width: 360px; }
+  .install-modal-card .modal-close { position: absolute; top: 10px; right: 10px; }
+  .install-steps {
+    margin: 0 0 8px 18px; padding: 0; color: var(--text); font-size: 13px; line-height: 1.6;
+  }
+  .install-steps li { margin-bottom: 8px; }
 
   .prog-page { display: none; padding: 16px; }
   .prog-page.active { display: block; }
