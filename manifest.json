@@ -2,9 +2,9 @@
   "name": "Tu Rutina — Gym 5 Días",
   "short_name": "Tu Rutina",
   "description": "Creá tu rutina de gym y registrá tus pesos",
-  "id": "/miturina/",
-  "start_url": "/miturina/",
-  "scope": "/miturina/",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0f0f0f",
@@ -13,13 +13,13 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "/miturina/assets/icons/icon-192.png",
+      "src": "assets/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/miturina/assets/icons/icon-512.png",
+      "src": "assets/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"

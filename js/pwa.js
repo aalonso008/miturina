@@ -16,13 +16,6 @@
     window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
 
-  function scopePath() {
-    var parts = location.pathname.split('/').filter(Boolean);
-    if (parts[0] === 'miturina') return '/miturina/';
-    var p = location.pathname;
-    return p.substring(0, p.lastIndexOf('/') + 1) || '/';
-  }
-
   function hideBanner() {
     if (banner) banner.classList.remove('show');
   }
@@ -70,10 +63,10 @@
     }
     if (isAndroid) {
       return [
-        'Importante: elegí "Instalar app", NO "Agregar a pantalla de inicio".',
-        'Abrí la página en Google Chrome.',
-        'Menú (⋮) → "Instalar app" (ícono de descarga).',
-        'Al abrirla, no debe verse la barra de Chrome.'
+        'Usá Google Chrome (actualizado).',
+        'Esperá unos segundos en la página.',
+        'Menú (⋮) → "Instalar app" (no "Acceso directo").',
+        'Si abre con barra de Chrome, borrá el acceso directo viejo e instalá de nuevo.'
       ];
     }
     return [
@@ -110,7 +103,7 @@
     }
 
     if (isAndroid) {
-      setHint('Menú (⋮) → Instalar app (no acceso directo)');
+      setHint('Esperá unos segundos y usá Menú → Instalar app');
       showBanner();
     }
   }
@@ -130,21 +123,8 @@
     showBanner();
   }
 
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      var scope = scopePath();
-      navigator.serviceWorker
-        .register(scope + 'sw.js', { scope: scope })
-        .then(function () {
-          if (!isStandalone) setTimeout(setupMobileInstructions, 600);
-        })
-        .catch(function (err) {
-          console.error('Service worker error:', err);
-          setupMobileInstructions();
-        });
-    });
-  } else {
-    setupMobileInstructions();
+  if (!isStandalone) {
+    setTimeout(setupMobileInstructions, 1200);
   }
 
   if (isStandalone) {
@@ -160,7 +140,7 @@
       installBtn.style.display = '';
       installBtn.textContent = 'Instalar';
     }
-    setHint('Tocá Instalar o usá el menú del navegador');
+    setHint('Tocá Instalar para modo app sin barra de Chrome');
     showBanner();
   });
 
