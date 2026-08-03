@@ -1,7 +1,8 @@
-const CACHE = 'tu-rutina-v6';
+const CACHE = 'tu-rutina-v7';
 const ASSETS = [
   './',
   './index.html',
+  './manifest.webmanifest',
   './manifest.json',
   './css/main.css',
   './js/routine-store.js',
