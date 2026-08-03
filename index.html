@@ -7,6 +7,8 @@
   <title>Tu Rutina</title>
   <link rel="stylesheet" href="css/main.css">
   <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png">
   <meta name="theme-color" content="#0f0f0f">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,8 +19,13 @@
 <body>
 
   <header>
-    <h1 id="headerTitle">Tu Rutina</h1>
-    <p id="headerSub">Creá y seguí tu rutina de gym</p>
+    <div class="header-row">
+      <div>
+        <h1 id="headerTitle">Tu Rutina</h1>
+        <p id="headerSub">Creá y seguí tu rutina de gym</p>
+      </div>
+      <button id="headerInstallBtn" class="header-install-btn" type="button" aria-label="Instalar app">Instalar</button>
+    </div>
   </header>
 
   <div id="page-rutina" class="active">
@@ -46,6 +53,15 @@
     </div>
     <button id="installBtn" class="install-btn" type="button">Instalar</button>
     <button id="installClose" class="install-close" type="button" aria-label="Cerrar">×</button>
+  </div>
+
+  <div id="installModal" class="modal">
+    <div class="modal-card install-modal-card">
+      <button id="installModalClose" class="install-close modal-close" type="button" aria-label="Cerrar">×</button>
+      <h2>Instalar Tu Rutina</h2>
+      <p>Seguí estos pasos en tu celular:</p>
+      <ol id="installSteps" class="install-steps"></ol>
+    </div>
   </div>
 
   <nav>
