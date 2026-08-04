@@ -1,5 +1,5 @@
 const CACHE = 'tu-rutina-v12';
-const SCOPE = '/miturina/';
+const SCOPE = '/';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();

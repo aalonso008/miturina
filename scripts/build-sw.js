@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const site = (process.env.SITE_URL || 'https://aalonso008.github.io/miturina').replace(/\/$/, '');
+const site = (process.env.SITE_URL || 'https://aalonso008.github.io').replace(/\/$/, '');
 const scopePath = new URL(site + '/').pathname;
 
 const sw = `const CACHE = 'tu-rutina-v12';

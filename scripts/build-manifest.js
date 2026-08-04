@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const site = (process.env.SITE_URL || 'https://aalonso008.github.io/miturina').replace(/\/$/, '');
+const site = (process.env.SITE_URL || 'https://aalonso008.github.io').replace(/\/$/, '');
 const base = site + '/';
 
 const manifest = {

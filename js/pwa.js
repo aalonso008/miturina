@@ -17,9 +17,7 @@
     window.navigator.standalone === true;
 
   function appScope() {
-    var path = location.pathname;
-    if (path.indexOf('/miturina') === 0) return '/miturina/';
-    return path.replace(/[^/]*$/, '') || '/';
+    return new URL('./', location.href).pathname;
   }
 
   function hideBanner() {
