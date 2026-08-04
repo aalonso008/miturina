@@ -23,7 +23,7 @@ jobs:
 
       - name: Build PWA assets
         env:
-          SITE_URL: https://aalonso008.github.io/miturina
+          SITE_URL: https://aalonso008.github.io
         run: |
           npm ci
           npm run icons
