@@ -63,10 +63,10 @@
     }
     if (isAndroid) {
       return [
-        'Usá Google Chrome con tu cuenta Google activa.',
-        'Menú (⋮) → Instalar app.',
-        'Esperá hasta 2 minutos sin cerrar Chrome.',
-        'Si el ícono tiene logo de Chrome abajo, borrá el acceso directo e instalá de nuevo.'
+        'No uses incógnito: Chrome no permite instalar apps ahí.',
+        'Abrí https://aalonso008.github.io/ en Chrome normal.',
+        'Esperá 30 segundos y tocá algo en la página.',
+        'Menú (⋮) → Instalar app, o el botón Instalar arriba.'
       ];
     }
     return ['Chrome o Edge → Instalar app.'];
@@ -88,7 +88,7 @@
       if (installBtn) installBtn.style.display = 'none';
       setHint('Safari → Compartir → Agregar a pantalla de inicio');
     } else if (isAndroid) {
-      setHint('Menú (⋮) → Instalar app');
+      setHint('Chrome normal (no incógnito) → Menú → Instalar app');
     }
     showBanner();
   }
