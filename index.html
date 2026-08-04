@@ -3,24 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <base href="./">
   <title>Tu Rutina</title>
   <link rel="stylesheet" href="css/main.css">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png">
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        var scope = '/miturina/';
-        if (location.hostname !== 'aalonso008.github.io') {
-          scope = location.pathname.replace(/[^/]*$/, '');
-          if (!scope.endsWith('/')) scope += '/';
-        }
-        navigator.serviceWorker.register(scope + 'sw.js', { scope: scope });
-      });
-    }
-  </script>
   <meta name="theme-color" content="#0f0f0f">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">

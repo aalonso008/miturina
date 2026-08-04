@@ -16,6 +16,12 @@
     window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
 
+  function appScope() {
+    var path = location.pathname;
+    if (path.indexOf('/miturina') === 0) return '/miturina/';
+    return path.replace(/[^/]*$/, '') || '/';
+  }
+
   function hideBanner() {
     if (banner) banner.classList.remove('show');
   }
@@ -40,39 +46,32 @@
     if (isInAppBrowser) {
       return [
         'Estás en un navegador interno (Instagram, WhatsApp, etc.).',
-        'Tocá los 3 puntos o "Abrir en navegador".',
-        'Elegí Chrome (Android) o Safari (iPhone).',
-        'Desde ahí instalá la app.'
+        'Abrí la página en Chrome o Safari.',
+        'Luego instalá desde el menú del navegador.'
       ];
     }
     if (isIOSChrome || isIOSFirefox) {
       return [
-        'En iPhone, la instalación solo funciona con Safari.',
-        'Copiá la URL o tocá Compartir → Abrir en Safari.',
-        'En Safari: Compartir (↑) → Agregar a pantalla de inicio.',
+        'En iPhone usá Safari.',
+        'Compartir (↑) → Agregar a pantalla de inicio.',
         'Confirmá con Agregar.'
       ];
     }
     if (isIOS) {
       return [
-        'Usá Safari (no Chrome).',
-        'Tocá Compartir (↑) abajo en el centro.',
-        'Elegí "Agregar a pantalla de inicio".',
-        'Tocá Agregar.'
+        'Safari → Compartir (↑) → Agregar a pantalla de inicio.',
+        'Confirmá con Agregar.'
       ];
     }
     if (isAndroid) {
       return [
-        'Usá Google Chrome con cuenta de Google activa.',
-        'Menú (⋮) → "Instalar app".',
-        'Esperá 1-2 minutos: Chrome genera la app en segundo plano.',
-        'Si falla: actualizá Google Play Services y probá con WiFi.'
+        'Usá Google Chrome con tu cuenta Google activa.',
+        'Menú (⋮) → Instalar app.',
+        'Esperá hasta 2 minutos sin cerrar Chrome.',
+        'Si el ícono tiene logo de Chrome abajo, borrá el acceso directo e instalá de nuevo.'
       ];
     }
-    return [
-      'En Chrome o Edge, buscá el ícono de instalar en la barra de direcciones.',
-      'O usá el menú del navegador → Instalar app.'
-    ];
+    return ['Chrome o Edge → Instalar app.'];
   }
 
   function renderInstallSteps() {
@@ -87,40 +86,20 @@
 
   function setupMobileInstructions() {
     if (isStandalone) return;
-
-    if (isIOSChrome || isIOSFirefox || isInAppBrowser) {
-      if (installBtn) installBtn.textContent = 'Cómo instalar';
-      setHint('Abrí en Safari o Chrome para instalar');
-      showBanner();
-      return;
-    }
-
     if (isIOS) {
       if (installBtn) installBtn.style.display = 'none';
       setHint('Safari → Compartir → Agregar a pantalla de inicio');
-      showBanner();
-      return;
+    } else if (isAndroid) {
+      setHint('Menú (⋮) → Instalar app');
     }
-
-    if (isAndroid) {
-      setHint('Esperá unos segundos y usá Menú → Instalar app');
-      showBanner();
-    }
+    showBanner();
   }
 
   function tryInstall() {
     if (deferredPrompt) {
       deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(function (result) {
-        if (result.outcome !== 'accepted') {
-          setHint('Instalación cancelada. Probá desde Menú → Instalar app.');
-          showBanner();
-        }
+      deferredPrompt.userChoice.finally(function () {
         deferredPrompt = null;
-      }).catch(function () {
-        setHint('No se pudo instalar. Revisá los pasos en Ayuda.');
-        renderInstallSteps();
-        showInstallModal();
       });
       return;
     }
@@ -129,11 +108,16 @@
     showBanner();
   }
 
-  if (!isStandalone) {
-    setTimeout(setupMobileInstructions, 1200);
+  if ('serviceWorker' in navigator) {
+    var scope = appScope();
+    navigator.serviceWorker.register(scope + 'sw.js', { scope: scope }).catch(function (err) {
+      console.error('Service worker error:', err);
+    });
   }
 
-  if (isStandalone) {
+  if (!isStandalone) {
+    setTimeout(setupMobileInstructions, 1000);
+  } else {
     hideBanner();
     if (headerInstallBtn) headerInstallBtn.style.display = 'none';
     return;
@@ -152,7 +136,6 @@
 
   if (installBtn) installBtn.addEventListener('click', tryInstall);
   if (headerInstallBtn) headerInstallBtn.addEventListener('click', tryInstall);
-
   if (installClose) installClose.addEventListener('click', hideBanner);
 
   var modalClose = document.getElementById('installModalClose');
