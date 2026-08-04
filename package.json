@@ -5,7 +5,8 @@
   "description": "PWA de rutina de gym",
   "scripts": {
     "start": "npx serve . -l 3000",
-    "icons": "node scripts/generate-icons.js"
+    "icons": "node scripts/generate-icons.js",
+    "build:pwa": "node scripts/generate-icons.js && node scripts/build-manifest.js && node scripts/build-sw.js"
   },
   "devDependencies": {
     "serve": "^14.2.4",

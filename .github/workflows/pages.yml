@@ -21,10 +21,14 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Generate icons
+      - name: Build PWA assets
+        env:
+          SITE_URL: https://aalonso008.github.io/miturina
         run: |
           npm ci
           npm run icons
+          node scripts/build-manifest.js
+          node scripts/build-sw.js
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4

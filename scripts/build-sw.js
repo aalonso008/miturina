@@ -1,5 +1,11 @@
-const CACHE = 'tu-rutina-v12';
-const SCOPE = '/miturina/';
+const fs = require('fs');
+const path = require('path');
+
+const site = (process.env.SITE_URL || 'https://aalonso008.github.io/miturina').replace(/\/$/, '');
+const scopePath = new URL(site + '/').pathname;
+
+const sw = `const CACHE = 'tu-rutina-v12';
+const SCOPE = '${scopePath}';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -19,3 +25,7 @@ self.addEventListener('fetch', (event) => {
     fetch(event.request).catch(() => caches.match(event.request))
   );
 });
+`;
+
+fs.writeFileSync(path.join(__dirname, '..', 'sw.js'), sw);
+console.log('Service worker generado con scope', scopePath);
