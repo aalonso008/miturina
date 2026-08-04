@@ -14,7 +14,7 @@ if (!fs.existsSync(source)) {
 
 fs.mkdirSync(iconsDir, { recursive: true });
 
-const pngOpts = { compressionLevel: 9, palette: true };
+const pngOpts = { compressionLevel: 9, quality: 85 };
 
 Promise.all([
   sharp(source).resize(192, 192).png(pngOpts).toFile(path.join(iconsDir, 'icon-192.png')),

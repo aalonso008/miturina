@@ -4,26 +4,22 @@ const path = require('path');
 const site = (process.env.SITE_URL || 'https://aalonso008.github.io').replace(/\/$/, '');
 const scopePath = new URL(site + '/').pathname;
 
-const sw = `const CACHE = 'tu-rutina-v12';
-const SCOPE = '${scopePath}';
+const sw = `const CACHE = 'tu-rutina-v13';
 
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
+  event.waitUntil(self.skipWaiting());
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key)))
-    ).then(() => self.clients.claim())
+    caches.keys().then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+      .then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
-  event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
-  );
+  event.respondWith(fetch(event.request));
 });
 `;
 
