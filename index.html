@@ -16,7 +16,9 @@
   <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(function () {});
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').catch(function () {});
+      });
     }
   </script>
 </head>

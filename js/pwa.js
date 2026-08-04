@@ -16,10 +16,6 @@
     window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
 
-  function appScope() {
-    return new URL('./', location.href).pathname;
-  }
-
   function hideBanner() {
     if (banner) banner.classList.remove('show');
   }
@@ -63,10 +59,11 @@
     }
     if (isAndroid) {
       return [
-        'No uses incógnito: Chrome no permite instalar apps ahí.',
-        'Abrí https://aalonso008.github.io/ en Chrome normal.',
-        'Esperá 30 segundos y tocá algo en la página.',
-        'Menú (⋮) → Instalar app, o el botón Instalar arriba.'
+        'Usá Google Chrome (no incógnito, no Samsung Internet).',
+        'Borrá accesos directos viejos de Tu Rutina.',
+        'Chrome → Configuración → Configuración de sitios → aalonso008.github.io → Borrar y restablecer.',
+        'Volvé a https://aalonso008.github.io/ y esperá 30 segundos.',
+        'Menú (⋮) → Instalar app (debe decir "Instalar app", no solo acceso directo).'
       ];
     }
     return ['Chrome o Edge → Instalar app.'];
@@ -88,7 +85,7 @@
       if (installBtn) installBtn.style.display = 'none';
       setHint('Safari → Compartir → Agregar a pantalla de inicio');
     } else if (isAndroid) {
-      setHint('Chrome normal (no incógnito) → Menú → Instalar app');
+      setHint('Chrome normal → Menú (⋮) → Instalar app');
     }
     showBanner();
   }
@@ -106,15 +103,35 @@
     showBanner();
   }
 
-  if ('serviceWorker' in navigator) {
-    var scope = appScope();
-    navigator.serviceWorker.register(scope + 'sw.js', { scope: scope }).catch(function (err) {
-      console.error('Service worker error:', err);
+  function cleanupOldWorkers() {
+    if (!('serviceWorker' in navigator)) return;
+    navigator.serviceWorker.getRegistrations().then(function (regs) {
+      regs.forEach(function (reg) {
+        if (reg.scope.indexOf('miturina') !== -1) reg.unregister();
+      });
     });
   }
 
+  function checkInstallReady() {
+    if (isStandalone || !isAndroid) return;
+    if (!('serviceWorker' in navigator)) {
+      setHint('Tu navegador no soporta apps instalables. Usá Chrome.');
+      showBanner();
+      return;
+    }
+    navigator.serviceWorker.getRegistration('/').then(function (reg) {
+      if (!reg || !reg.active) {
+        setHint('Esperá unos segundos a que cargue la app…');
+        showBanner();
+      }
+    });
+  }
+
+  cleanupOldWorkers();
+
   if (!isStandalone) {
-    setTimeout(setupMobileInstructions, 1000);
+    setTimeout(setupMobileInstructions, 1500);
+    setTimeout(checkInstallReady, 4000);
   } else {
     hideBanner();
     if (headerInstallBtn) headerInstallBtn.style.display = 'none';
@@ -128,7 +145,7 @@
       installBtn.style.display = '';
       installBtn.textContent = 'Instalar';
     }
-    setHint('Tocá Instalar para modo app sin barra de Chrome');
+    setHint('Listo: tocá Instalar para modo app');
     showBanner();
   });
 
